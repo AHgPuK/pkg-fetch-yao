@@ -125,8 +125,10 @@ export async function need(opts: NeedOptions) {
       }
 
       // when node path is set, skip hash check
+      // PKG_SKIP_HASH keeps locally modified binaries (e.g. custom icon)
       if (
         !!process.env.PKG_NODE_PATH ||
+        !!process.env.PKG_SKIP_HASH ||
         (await hash(fetched)) === EXPECTED_HASHES[remote.name]
       ) {
         return fetched;
